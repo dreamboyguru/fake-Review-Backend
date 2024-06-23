@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+// require('dotenv').config();
 
 const app = express();
 app.use(cors());
@@ -12,18 +12,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const port = process.env.PORT || 5000;
-const dbHost = process.env.DB_HOST;
-const dbUser = process.env.DB_USER;
-// const dbPass = process.env.DB_PASS;
-const dbName = process.env.DB_NAME;
+const port = 5000;
+// const dbHost = process.env.DB_HOST;
+// const dbUser = process.env.DB_USER;
+// // const dbPass = process.env.DB_PASS;
+// const dbName = process.env.DB_NAME;
 
 // Database connection
 const db = mysql.createConnection({
-  host: dbHost,
-  user: dbUser,
+  host: 'localhost',
+  user: 'root',
   password: '',
-  database: dbName
+  database: 'fake_review'
 });
 
 db.connect((err) => {
