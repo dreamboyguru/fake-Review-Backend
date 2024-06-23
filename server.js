@@ -15,14 +15,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const port = process.env.PORT || 5000;
 const dbHost = process.env.DB_HOST;
 const dbUser = process.env.DB_USER;
-const dbPass = process.env.DB_PASS;
+// const dbPass = process.env.DB_PASS;
 const dbName = process.env.DB_NAME;
 
 // Database connection
 const db = mysql.createConnection({
   host: dbHost,
   user: dbUser,
-  password: dbPass,
+  password: '',
   database: dbName
 });
 
