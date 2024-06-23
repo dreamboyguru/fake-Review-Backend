@@ -4,20 +4,18 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-// require('dotenv').config();
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const port = 3000;
 // const dbHost = process.env.DB_HOST;
 // const dbUser = process.env.DB_USER;
-// // const dbPass = process.env.DB_PASS;
-// const dbName = process.env.DB_NAME;
+// const dbPass = process.env.DB_PASS;
 
 // Database connection
 const db = mysql.createConnection({
@@ -47,9 +45,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.get('/', (req, res) => {
-  res.send('wellcome')
-})
 app.post('/api/products', upload.single('productImage'), (req, res) => {
   const productName = req.body.productName;
   const productImage = req.file.filename;
@@ -166,5 +161,5 @@ app.delete('/api/fake/reviews/:idsToDelete', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Server is running on port 5000');
+  console.log(`Server is running on port ${port}`);
 });
