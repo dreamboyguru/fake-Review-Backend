@@ -20,10 +20,10 @@ const port = 5000;
 
 // Database connection
 const db = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: '',
-  database: 'fake_review'
+  host: 'sql12.freesqldatabase.com',
+  user: 'sql12715203',
+  password: 'rK7DLiMnmP',
+  database: 'sql12715203'
 });
 
 db.connect((err) => {
