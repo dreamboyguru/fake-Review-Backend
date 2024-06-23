@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
@@ -20,6 +20,7 @@ const dbName = process.env.DB_NAME;
 
 // Database connection
 const db = mysql.createConnection({
+  connectionLimit: 10,
   host: dbHost,
   user: dbUser,
   password: dbPass,
@@ -51,7 +52,7 @@ app.post('/api/products', upload.single('productImage'), (req, res) => {
   const productImage = req.file.filename;
 
   const query = 'INSERT INTO products (name, image) VALUES (?, ?)';
-  db.execute(query, [productName, productImage], (err, results) => {
+  db.query(query, [productName, productImage], (err, results) => {
     if (err) {
       console.error('Database insertion failed:', err);
       res.status(500).json({ error: 'Database insertion failed' });
