@@ -13,16 +13,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const port = 3307;
-// const dbHost = process.env.DB_HOST;
-// const dbUser = process.env.DB_USER;
-// const dbPass = process.env.DB_PASS;
+const dbHost = process.env.DB_HOST;
+const dbUser = process.env.DB_USER;
+const dbPass = process.env.DB_PASS;
+const dbName = process.env.DB_NAME;
 
 // Database connection
 const db = mysql.createConnection({
-  host: 'sql12.freesqldatabase.com',
-  user: 'sql12715203',
-  password: 'rK7DLiMnmP',
-  database: 'sql12715203'
+  host: dbHost,
+  user: dbUser,
+  password: dbPass,
+  database: dbName
 });
 
 db.connect((err) => {
