@@ -20,7 +20,7 @@ const port = 5000;
 
 // Database connection
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'root',
   password: '',
   database: 'fake_review'
