@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const port = 3000;
+const port = 3307;
 // const dbHost = process.env.DB_HOST;
 // const dbUser = process.env.DB_USER;
 // const dbPass = process.env.DB_PASS;
