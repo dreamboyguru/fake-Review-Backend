@@ -91,13 +91,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post('/api/products', upload.single('productImage'), (req, res) => {
-  const { productName, productType, productRate } = req.body;
+  const { productName, productType, productRate, description } = req.body;
   const productImage = req.file.filename;
 
   // console.log(productImage, productName); return;
 
-  const query = 'INSERT INTO products (name, type, rate, image) VALUES (?, ?, ?, ?)';
-  db.query(query, [productName, productType, productRate, productImage], (err, results) => {
+  const query = 'INSERT INTO products (name, type, rate, image, description) VALUES (?, ?, ?, ?, ?)';
+  db.query(query, [productName, productType, productRate, productImage, description], (err, results) => {
     if (err) {
       console.error('Database insertion failed:', err);
       res.status(500).json({ error: 'Database insertion failed' });
@@ -260,7 +260,7 @@ app.get('/api/sales/:id', (req, res) => {
   const {id} = req.params;
   // console.log("hi");
 
-  const sql = 'select * from sales where user_id = ?'
+  const sql = 'select * from sales as s left join products as p on p.id = s.product_id  where s.user_id = ?'
   db.query(sql, [id], (err, results) => {
     if(err) return res.status(500).send('server error');
     if (results.length > 0) {
