@@ -123,9 +123,9 @@ app.get('/api/products', (req, res) => {
 }); 
 
 app.post('/api/rating', (req, res) => {
-  const { id, review, rating, ip } = req.body;
-  const sql = 'INSERT INTO ratings (product_id, rating, details, user_IP_adress) VALUES (?, ?, ?, ?)';
-  db.query(sql, [id, rating, review, ip], (err, result) => {
+  const { id, user_id, review, rating, ip } = req.body;
+  const sql = 'INSERT INTO ratings (product_id, user_id, rating, details, user_IP_adress) VALUES (?, ?, ?, ?, ?)';
+  db.query(sql, [id, user_id, rating, review, ip], (err, result) => {
     if (err) {
       console.error("Error inserting rating:", err);
       return res.status(500).send('Server error while inserting');
@@ -141,7 +141,7 @@ app.post('/api/rating', (req, res) => {
 app.get('/api/reviws/:id', (req, res) => {
   const {id} = req.params;
   // console.log('hii'); return
-  const sql = 'select * from ratings where product_id = ?'
+  const sql = 'SELECT r.*, u.name as name  FROM ratings AS r LEFT JOIN register AS u ON r.user_id = u.id WHERE r.product_id = ?'
   db.query(sql, [id], (err, results) => {
     if (err) return res.status(500).send('server err');
     if (results.length > 0) {
